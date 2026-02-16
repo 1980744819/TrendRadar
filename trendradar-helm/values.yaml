@@ -1,0 +1,64 @@
+# Default values for trendradar.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: wantcat/trendradar
+  pullPolicy: Always
+  tag: "latest"
+
+mcp:
+  enabled: false
+  image:
+    repository: wantcat/trendradar-mcp
+    pullPolicy: Always
+    tag: "latest"
+
+persistence:
+  enabled: true
+  storageClass: "local-storage-nvme"
+  accessMode: ReadWriteOnce
+  size: 5Gi
+
+appService:
+  type: NodePort
+  port: 8080
+  nodePort: 31081
+
+mcpService:
+  type: NodePort
+  port: 3333
+  nodePort: 31333
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 500m
+    memory: 512Mi
+
+volumes:
+  - name: trendradar-config-volume
+    configMap:
+      name: trendradar-config
+      items:
+        - key: config.prod.yaml
+          path: config.yaml
+  - name: trendradar-env-volume
+    configMap:
+      name: trendradar-env
+      items:
+        - key: .env.prod
+          path: .env
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts:
+  - name: trendradar-config-volume # 与 volumes 中名称一致
+    mountPath: /app/config # 容器内挂载路径
+    readOnly: true # 可读写（配置文件可设为 true）
+  - name: trendradar-env-volume # 与 volumes 中名称一致
+    mountPath: /app # 容器内挂载路径
+    readOnly: true # 可读写（环境变量文件可设为 true）

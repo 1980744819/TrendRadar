@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM 192.168.1.7:30002/python:3.10-slim
 
 WORKDIR /app
 

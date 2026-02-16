@@ -1,0 +1,17 @@
+apiVersion: v2
+name: trendradar
+version: 0.1.0
+description: A Helm chart for deploying TrendRadar, a hot news aggregator and notification service
+keywords:
+  - news
+  - aggregator
+  - notification
+  - ai
+  - docker
+home: https://github.com/sansan0/TrendRadar
+maintainers:
+  - name: TrendRadar Team
+    email: none@example.com
+    url: https://github.com/sansan0/TrendRadar
+appVersion: "6.0.0"
+type: application

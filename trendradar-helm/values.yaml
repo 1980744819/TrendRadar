@@ -68,5 +68,5 @@ volumeMounts:
     mountPath: /app/config # 容器内挂载路径
     readOnly: true # 可读写（配置文件可设为 true）
   - name: trendradar-env-volume # 与 volumes 中名称一致
-    mountPath: /app # 容器内挂载路径
+    mountPath: /app/docker # 容器内挂载路径
     readOnly: true # 可读写（环境变量文件可设为 true）

@@ -44,7 +44,7 @@ env:
   ENABLE_WEBSERVER: "true"
   WEBSERVER_PORT: "8080"
   RUN_MODE: "cron"
-  IMMEDIATE_RUN: "true"
+  IMMEDIATE_RUN: "false"
   CRON_SCHEDULE: "*/10 * * * *"
   WEWORK_WEBHOOK_URL: "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=af5680a2-68b8-4d9e-92e3-57e1fe896536"
   WEWORK_MSG_TYPE: "markdown"

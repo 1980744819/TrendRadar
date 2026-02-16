@@ -61,7 +61,7 @@ volumes:
         - key: ai_analysis_prompt.txt
           path: ai_analysis_prompt.txt
         - key: ai_translation_prompt.txt
-          path: ai_translation_prompt.yaml
+          path: ai_translation_prompt.txt
         - key: timeline.yaml
           path: timeline.yaml
 

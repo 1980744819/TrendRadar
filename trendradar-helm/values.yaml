@@ -40,6 +40,13 @@ resources:
     cpu: 100m
     memory: 128Mi
 
+env:
+  ENABLE_WEBSERVER: "true"
+  WEBSERVER_PORT: "8080"
+  RUN_MODE: "cron"
+  IMMEDIATE_RUN: "true"
+  CRON_SCHEDULE: "* * * * *"
+
 volumes:
   - name: trendradar-config-volume
     configMap:
@@ -55,18 +62,9 @@ volumes:
           path: ai_analysis_prompt.yaml
         - key: timeline.yaml
           path: timeline.yaml
-  - name: trendradar-env-volume
-    configMap:
-      name: trendradar-env
-      items:
-        - key: .env.prod
-          path: .env
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
   - name: trendradar-config-volume # 与 volumes 中名称一致
     mountPath: /app/config # 容器内挂载路径
     readOnly: true # 可读写（配置文件可设为 true）
-  - name: trendradar-env-volume # 与 volumes 中名称一致
-    mountPath: /app # 容器内挂载路径
-    readOnly: true # 可读写（环境变量文件可设为 true）

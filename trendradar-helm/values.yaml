@@ -25,7 +25,7 @@ persistence:
 appService:
   type: NodePort
   port: 8080
-  nodePort: 31081
+  nodePort: 31082
 
 mcpService:
   type: NodePort
@@ -34,11 +34,11 @@ mcpService:
 
 resources:
   limits:
-    cpu: 100m
-    memory: 128Mi
-  requests:
     cpu: 500m
     memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
 
 volumes:
   - name: trendradar-config-volume

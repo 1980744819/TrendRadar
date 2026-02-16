@@ -2,12 +2,11 @@
 Common labels
 */}}
 {{- define "trendradar.labels" }}
-  labels:
-    helm.sh/chart: {{ include "trendradar.chart" . }}
-    app.kubernetes.io/name: {{ include "trendradar.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  helm.sh/chart: {{ include "trendradar.chart" . }}
+  app.kubernetes.io/name: {{ include "trendradar.name" . }}
+  app.kubernetes.io/instance: {{ .Release.Name }}
+  app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+  app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{/*

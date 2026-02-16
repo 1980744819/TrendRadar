@@ -10,7 +10,7 @@ ENV http_proxy=http://192.168.1.7:7890 \
     https_proxy=http://192.168.1.7:7890 \
     no_proxy=localhost,127.0.0.1,192.168.0.0/16,10.0.0.0/8
 
-COPY ubuntu.sources /etc/apt/sources.list.d/ubuntu.sources
+# COPY ubuntu.sources /etc/apt/sources.list.d/ubuntu.sources
 
 RUN set -ex && \
     apt-get update && \

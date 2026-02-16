@@ -5,6 +5,12 @@ WORKDIR /app
 # Latest releases available at https://github.com/aptible/supercronic/releases
 ARG TARGETARCH
 ENV SUPERCRONIC_VERSION=v0.2.39
+# 设置代理
+ENV http_proxy=http://192.168.1.7:7890 \
+    https_proxy=http://192.168.1.7:7890 \
+    no_proxy=localhost,127.0.0.1,192.168.0.0/16,10.0.0.0/8
+
+COPY ubuntu.sources /etc/apt/sources.list.d/ubuntu.sources
 
 RUN set -ex && \
     apt-get update && \
@@ -51,7 +57,7 @@ RUN set -ex && \
     rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 COPY docker/manage.py .
 COPY trendradar/ ./trendradar/

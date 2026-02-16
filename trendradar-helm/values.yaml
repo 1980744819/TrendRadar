@@ -47,6 +47,14 @@ volumes:
       items:
         - key: config.prod.yaml
           path: config.yaml
+        - key: frequency_words.txt
+          path: frequency_words.txt
+        - key: ai_analysis_prompt.txt
+          path: ai_analysis_prompt.txt
+        - key: ai_analysis_prompt.txt
+          path: ai_analysis_prompt.yaml
+        - key: timeline.yaml
+          path: timeline.yaml
   - name: trendradar-env-volume
     configMap:
       name: trendradar-env

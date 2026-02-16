@@ -29,7 +29,7 @@ pipeline {
         APP_NAME = "trendradar"  // 应用名称
     }
     
-    // 流水线阶段定义（拉取代码 → 构建镜像 → 推送镜像 → 创建 ConfigMap → 部署应用）
+    // 流水线阶段定义（拉取代码 → 构建镜像 → 推送镜像 → 部署应用）
     stages {
         // 阶段 1：拉取代码仓库
         stage('Pull Code') {
@@ -144,50 +144,7 @@ pipeline {
             }
         }
         
-        // 阶段 5：创建/更新 ConfigMap
-        stage('Create ConfigMap') {
-            steps {
-                container('kubectl') {
-                    sh '''
-                    set -euo pipefail
-
-                    echo "开始创建/更新 ConfigMap..."
-                    
-                    # 创建 trendradar-config ConfigMap
-                    if kubectl get configmap trendradar-config -n ${NAMESPACE} 2>/dev/null; then
-                        echo "更新 trendradar-config ConfigMap..."
-                        kubectl create configmap trendradar-config -n ${NAMESPACE} \
-                            --from-file=config.prod.yaml=./docker/config.prod.yaml \
-                            --from-file=frequency_words.txt=./config/frequency_words.txt \
-                            --from-file=ai_analysis_prompt.txt=./config/ai_analysis_prompt.txt \
-                            --dry-run=client -o yaml | kubectl apply -f -
-                    else
-                        echo "创建 trendradar-config ConfigMap..."
-                        kubectl create configmap trendradar-config -n ${NAMESPACE} \
-                            --from-file=config.prod.yaml=./docker/config.prod.yaml \
-                            --from-file=frequency_words.txt=./config/frequency_words.txt \
-                            --from-file=ai_analysis_prompt.txt=./config/ai_analysis_prompt.txt
-                    fi
-                    
-                    # 创建 trendradar-env ConfigMap
-                    if kubectl get configmap trendradar-env -n ${NAMESPACE} 2>/dev/null; then
-                        echo "更新 trendradar-env ConfigMap..."
-                        kubectl create configmap trendradar-env -n ${NAMESPACE} \
-                            --from-file=.env.prod=./docker/.env.prod \
-                            --dry-run=client -o yaml | kubectl apply -f -
-                    else
-                        echo "创建 trendradar-env ConfigMap..."
-                        kubectl create configmap trendradar-env -n ${NAMESPACE} \
-                            --from-file=.env.prod=./docker/.env.prod
-                    fi
-                    
-                    echo "ConfigMap 创建/更新完成！"
-                    '''
-                }
-            }
-        }
-        
-        // 阶段 6：使用 Helm 部署应用
+        // 阶段 5：使用 Helm 部署应用
         stage('Helm Deploy') {
             steps {
                 container('helm') {

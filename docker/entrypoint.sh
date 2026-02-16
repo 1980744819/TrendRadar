@@ -7,6 +7,11 @@ if [ ! -f "/app/config/config.yaml" ] || [ ! -f "/app/config/frequency_words.txt
     exit 1
 fi
 
+if [ -f "/app/.env" ]; then
+    echo "📄 读取 .env 文件中的环境变量..."
+    export $(grep -v '^#' /app/.env | xargs)
+fi
+
 # 保存环境变量
 env >> /etc/environment
 

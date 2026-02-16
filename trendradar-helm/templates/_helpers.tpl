@@ -1,7 +1,7 @@
 {{/*
 Common labels
 */}}
-define "trendradar.labels"
+{{- define "trendradar.labels" }}
   labels:
     helm.sh/chart: {{ include "trendradar.chart" . }}
     app.kubernetes.io/name: {{ include "trendradar.name" . }}
@@ -13,7 +13,7 @@ define "trendradar.labels"
 {{/*
 Selector labels
 */}}
-define "trendradar.selectorLabels"
+{{- define "trendradar.selectorLabels" }}
   app.kubernetes.io/name: {{ include "trendradar.name" . }}
   app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
@@ -21,7 +21,7 @@ define "trendradar.selectorLabels"
 {{/*
 Full name
 */}}
-define "trendradar.fullname"
+{{- define "trendradar.fullname" }}
   {{- if .Values.fullnameOverride }}
     {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
   {{- else }}
@@ -37,21 +37,21 @@ define "trendradar.fullname"
 {{/*
 Chart name
 */}}
-define "trendradar.chart"
+{{- define "trendradar.chart" }}
   {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Name of the application
 */}}
-define "trendradar.name"
+{{- define "trendradar.name" }}
   {{- default .Chart.Name .Values.nameOverride }}
 {{- end }}
 
 {{/*
 Service account name
 */}}
-define "trendradar.serviceAccountName"
+{{- define "trendradar.serviceAccountName" }}
   {{- if .Values.serviceAccount.create }}
     {{- default (include "trendradar.fullname" .) .Values.serviceAccount.name }}
   {{- else }}

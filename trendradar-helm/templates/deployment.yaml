@@ -5,9 +5,7 @@ metadata:
   labels:
     {{- include "trendradar.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
       {{- include "trendradar.selectorLabels" . | nindent 6 }}
@@ -24,7 +22,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "trendradar.serviceAccountName" . }}
+      serviceAccountName: default
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       volumes:
@@ -41,6 +39,7 @@ spec:
               {{- end }}
             {{- end }}
           {{- end }}
+        {{- end }}
         - name: output
           persistentVolumeClaim:
             claimName: {{ include "trendradar.fullname" . }}-pvc
@@ -89,9 +88,7 @@ metadata:
     {{- include "trendradar.labels" . | nindent 4 }}
     app.kubernetes.io/component: mcp
 spec:
-  {{- if not .Values.autoscaling.enabled }}
   replicas: 1
-  {{- end }}
   selector:
     matchLabels:
       {{- include "trendradar.selectorLabels" . | nindent 6 }}
@@ -110,7 +107,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "trendradar.serviceAccountName" . }}
+      serviceAccountName: default
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       volumes:
@@ -127,6 +124,7 @@ spec:
               {{- end }}
             {{- end }}
           {{- end }}
+        {{- end }}
         - name: output
           persistentVolumeClaim:
             claimName: {{ include "trendradar.fullname" . }}-pvc

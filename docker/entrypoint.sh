@@ -6,10 +6,12 @@ if [ ! -f "/app/config/config.yaml" ] || [ ! -f "/app/config/frequency_words.txt
     echo "❌ 配置文件缺失"
     exit 1
 fi
-
+# 读取 .env 文件中的环境变量
 if [ -f "/app/.env" ]; then
     echo "📄 读取 .env 文件中的环境变量..."
-    export $(grep -v '^#' /app/.env | xargs)
+    set -a
+    source /app/.env
+    set +a
 fi
 
 # 保存环境变量

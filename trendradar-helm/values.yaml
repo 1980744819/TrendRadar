@@ -46,6 +46,8 @@ env:
   RUN_MODE: "cron"
   IMMEDIATE_RUN: "true"
   CRON_SCHEDULE: "*/3 * * * *"
+  WEWORK_WEBHOOK_URL: https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=55e692d3-865e-493c-96ee-760a9a3ab807
+  WEWORK_MSG_TYPE: markdown
 
 volumes:
   - name: trendradar-config-volume
@@ -58,8 +60,8 @@ volumes:
           path: frequency_words.txt
         - key: ai_analysis_prompt.txt
           path: ai_analysis_prompt.txt
-        - key: ai_analysis_prompt.txt
-          path: ai_analysis_prompt.yaml
+        - key: ai_translation_prompt.txt
+          path: ai_translation_prompt.yaml
         - key: timeline.yaml
           path: timeline.yaml
 
